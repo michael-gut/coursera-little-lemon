@@ -16,3 +16,10 @@ val DefaultButtonColor = ButtonColors(
     disabledContainerColor = Color.Gray,
     disabledContentColor = Color.White
 )
+
+val LightButtonColor = ButtonColors(
+    containerColor = HighlightLight,
+    contentColor = GreenMain,
+    disabledContainerColor = HighlightDark,
+    disabledContentColor = HighlightLight
+)

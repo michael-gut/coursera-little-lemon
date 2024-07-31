@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.learning.littlelemon.R
-import com.learning.littlelemon.TopAppBar
 import com.learning.littlelemon.ui.theme.DefaultButtonColor
 import com.learning.littlelemon.ui.theme.HighlightDark
 import com.learning.littlelemon.ui.theme.LittleLemonTheme

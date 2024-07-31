@@ -27,6 +27,12 @@ interface MenuItemDao {
     @Query("SELECT * from $TABLE_NAME ORDER BY title ASC")
     fun getAllItems(): Flow<List<MenuItemEntity>>
 
+    @Query("SELECT DISTINCT category from $TABLE_NAME")
+    fun getAllCategories(): Flow<List<String>>
+
+    @Query("SELECT * from $TABLE_NAME WHERE LOWER(title) LIKE '%' || LOWER(:searchPhrase) || '%' ORDER BY title ASC")
+    fun getItemsForSearch(searchPhrase: String): Flow<List<MenuItemEntity>>
+
     @Query("SELECT * from $TABLE_NAME WHERE category = :category ORDER BY title ASC")
     fun getItemsForCategory(category: String): Flow<List<MenuItemEntity>>
 

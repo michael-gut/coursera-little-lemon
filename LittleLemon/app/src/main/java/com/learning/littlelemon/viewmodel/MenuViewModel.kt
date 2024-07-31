@@ -11,14 +11,40 @@ import kotlinx.coroutines.launch
 
 class MenuViewModel(private val menuRepository: MenuRepository) : ViewModel() {
     val menuItemsFlow = MutableStateFlow(emptyList<MenuItemEntity>())
-    val menuCategory = MutableStateFlow("")
+    val menuCategoryFlow = MutableStateFlow(emptyList<String>())
 
-    fun getMenuItems() {
+    fun getMenuCategories() {
         viewModelScope.launch(IO) {
-            menuRepository.getAllItemsStream().collectLatest {
+            menuRepository.getAllCategoriesStream().collectLatest {
+                menuCategoryFlow.tryEmit(it)
+            }
+        }
+    }
+
+    fun getMenuItems(searchPhrase: String) {
+        viewModelScope.launch(IO) {
+            if (searchPhrase.isNotEmpty()) {
+                menuRepository.getItemsStream(searchPhrase).collectLatest {
+                    menuItemsFlow.tryEmit(it)
+                }
+            } else {
+                menuRepository.getAllItemsStream().collectLatest {
+                    menuItemsFlow.tryEmit(it)
+                }
+            }
+        }
+    }
+
+    fun getMenuItemsForCategory(category: String) {
+        viewModelScope.launch(IO) {
+            menuRepository.getMenuCategory(category).collectLatest {
                 menuItemsFlow.tryEmit(it)
             }
         }
+    }
+
+    fun setSearchPhrase(searchPhrase: String) {
+        getMenuItems(searchPhrase)
     }
 
     fun updateMenuItem(menuItem: MenuItemEntity) {
@@ -31,9 +57,5 @@ class MenuViewModel(private val menuRepository: MenuRepository) : ViewModel() {
         viewModelScope.launch(IO) {
             menuRepository.insertMenuItem(menuItem)
         }
-    }
-
-    fun setMenuCategory(category: String) {
-        menuCategory.tryEmit(category)
     }
 }

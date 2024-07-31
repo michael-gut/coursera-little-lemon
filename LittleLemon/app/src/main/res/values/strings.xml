@@ -9,6 +9,7 @@
     <string name="home_description">We are a family-owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</string>
     <string name="home_info">ORDER FOR DELIVERY!</string>
     <string name="home_profile_button">Profile</string>
+    <string name="home_search">Enter search phrase</string>
     <string name="profile_logout_button">Logout</string>
     <string name="profile_info">Profile information:</string>
     <string name="server_url">https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json</string>

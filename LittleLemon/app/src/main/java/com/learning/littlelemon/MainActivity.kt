@@ -8,7 +8,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.learning.littlelemon.repository.MenuRepository
-import com.learning.littlelemon.repository.MenuRepositoryInterface
 import com.learning.littlelemon.repository.convertToMenuItemEntity
 import com.learning.littlelemon.ui.theme.LittleLemonTheme
 import com.learning.littlelemon.utils.MenuNetwork

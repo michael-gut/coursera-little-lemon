@@ -12,10 +12,8 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
-
 import org.junit.Test
 import org.junit.runner.RunWith
-
 import org.junit.Assert.*
 
 /**

@@ -2,12 +2,12 @@ package com.learning.littlelemon.repository
 
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 interface MenuRepositoryInterface {
     suspend fun getAllItemsStream(): Flow<List<MenuItemEntity>>
-    suspend fun getMenu(): Flow<Map<String, List<MenuItemEntity>>>
+    suspend fun getAllCategoriesStream(): Flow<List<String>>
+    suspend fun getItemsStream(searchPhrase: String): Flow<List<MenuItemEntity>>
     suspend fun getItemStream(id: Int): Flow<MenuItemEntity?>
     suspend fun getMenuCategory(category: String): Flow<List<MenuItemEntity>>
     suspend fun insertMenuItem(item: MenuItemEntity)
@@ -25,9 +25,15 @@ class MenuRepository(
         }
     }
 
-    override suspend fun getMenu(): Flow<Map<String, List<MenuItemEntity>>> {
+    override suspend fun getAllCategoriesStream(): Flow<List<String>> {
         return withContext(IO) {
-            menuItemDao.getAllItems().map { it.groupBy { it.category } }
+            menuItemDao.getAllCategories()
+        }
+    }
+
+    override suspend fun getItemsStream(searchPhrase: String): Flow<List<MenuItemEntity>> {
+        return withContext(IO) {
+            menuItemDao.getItemsForSearch(searchPhrase)
         }
     }
 
@@ -44,7 +50,6 @@ class MenuRepository(
     }
 
     override suspend fun insertMenuItem(item: MenuItemEntity) {
-        println("Inserting $item")
         return withContext(IO) {
             menuItemDao.insert(item)
         }
